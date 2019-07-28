@@ -3,12 +3,13 @@ import os
 import urllib.parse
 
 from threading import Thread
+from utils.constants import *
 
 class Compiler():
 
-    def __init__(self, input_file, output_file, compilation_level, external_vars):
+    def __init__(self, input_file, output_file, compilation_level = LEVEL_SIMPLE, external_vars = ''):
         self.input_file = input_file
-        self.output_file = output_file
+        self.output_dir = output_file
         self.compilation_level = compilation_level
         self.external_vars = external_vars
 
@@ -23,15 +24,15 @@ class Compiler():
 
             self._process_batch(files)
         else:
-            self._process_single(self.input_file, self.output_file)
+            self._process_single(self.input_file, self.output_dir)
 
     def _process_batch(self, files):
-
-        if not os.path.isdir(self.output_file):
-            os.makedirs(self.output_file)
+    
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
 
         workers = [
-            Thread(target = self._process_single, args = (file_path, os.path.join(self.output_file, file_path), self.input_file)) for file_path in files
+            Thread(target = self._process_single, args = (file_path, os.path.join(self.output_dir, file_path), self.input_file)) for file_path in files
         ]
 
         for worker in workers:
@@ -41,7 +42,7 @@ class Compiler():
         for worker in workers:
             worker.join()
 
-    def _process_single(self, input_file_name, output_file, root = './', ):
+    def _process_single(self, input_file_name, output_file, root = './'):
         path = os.path.join(root, input_file_name)
         js_code = open(path, 'r')
 

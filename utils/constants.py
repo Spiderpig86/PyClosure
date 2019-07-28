@@ -4,8 +4,8 @@
 from collections import namedtuple
 
 #  Help Messages
-HELP_INPUT_FILE = 'Name of the input file.'
-HELP_OUTPUT_FILE = 'Name of the output file.'
+HELP_INPUT_FILE = 'Name of the input file/directory.'
+HELP_OUTPUT_FILE = 'Name of the output directory.'
 HELP_OPTIMIZATION_LEVEL = 'The level of optimization for JavaScript files.'
 HELP_EXTERNAL_VARS = 'Add external JS variaables and functions delimited with semicolons.'
 
