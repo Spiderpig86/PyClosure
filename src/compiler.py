@@ -1,5 +1,8 @@
 import http.client
+import os
 import urllib.parse
+
+from threading import Thread
 
 class Compiler():
 
@@ -10,4 +13,56 @@ class Compiler():
         self.external_vars = external_vars
 
     def compile(self):
-        pass
+        """Builds request to compile the file.
+        """
+        
+        # Check if we searching a directory or not
+        if os.path.isdir(self.input_file):
+            # NOTE: Only searches for single level depth for now
+            files = [f for f in os.listdir(self.input_file) if os.path.isfile(os.path.join(self.input_file, f))]
+
+            self._process_batch(files)
+        else:
+            self._process_single(self.input_file, self.output_file)
+
+    def _process_batch(self, files):
+
+        if not os.path.isdir(self.output_file):
+            os.makedirs(self.output_file)
+
+        workers = [
+            Thread(target = self._process_single, args = (file_path, os.path.join(self.output_file, file_path), self.input_file)) for file_path in files
+        ]
+
+        for worker in workers:
+            worker.start()
+
+        # Wait for completion
+        for worker in workers:
+            worker.join()
+
+    def _process_single(self, input_file_name, output_file, root = './', ):
+        path = os.path.join(root, input_file_name)
+        js_code = open(path, 'r')
+
+        params = urllib.parse.urlencode([
+            ('js_code', js_code.read()),
+            ('compilation_level', self.compilation_level),
+            ('output_format', 'text'),
+            ('output_info', 'compiled_code'),
+            ('js_externs', self.external_vars)
+        ])
+
+        js_code.close()
+        self._forward_request(params, output_file)
+
+    def _forward_request(self, params, path):
+        headers = {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'}
+        conn = http.client.HTTPSConnection('closure-compiler.appspot.com')
+        conn.request('POST', '/compile', params, headers)
+        response = conn.getresponse()
+        data = response.read()
+        output_code = open(path, 'w+')
+        output_code.write(data.decode('utf-8'))
+        output_code.close()
+        conn.close()

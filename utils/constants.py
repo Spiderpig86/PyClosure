@@ -9,14 +9,14 @@ HELP_OUTPUT_FILE = 'Name of the output file.'
 HELP_OPTIMIZATION_LEVEL = 'The level of optimization for JavaScript files.'
 HELP_EXTERNAL_VARS = 'Add external JS variaables and functions delimited with semicolons.'
 
-# Default Values
-DEFAULT_OUT = 'index.min.js'
-DEFAULT_LEVEL = LEVEL_WHITESPACE
-
 # Level Choices
 LEVEL_WHITESPACE = 'WHITESPACE_ONLY'
 LEVEL_SIMPLE = 'SIMPLE_OPTIMIZATIONS'
 LEVEL_ADVANCED = 'ADVANCED_OPTIMIZATIONS'
+
+# Default Values
+DEFAULT_OUT = 'index.min.js'
+DEFAULT_LEVEL = LEVEL_WHITESPACE
 
 # Types
 Conf = namedtuple('Conf', ['output', 'compile_level'])
