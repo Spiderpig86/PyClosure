@@ -15,7 +15,7 @@ pip3 install pyclosure
 # Usage
 
 ``` sh
-usage: python -m pyclosure [-h] [--input <INPUT_FILE/INPUT_DIR>] [--output <OUTPUT_FILE/OUTPUT_DIR>] [--level {WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS,ADVANCED_OPTIMIZATIONS} --extern <COMMA_SEPARATED_VARS>]
+usage: python -m pyclosure [-h] [--input <INPUT_FILE/INPUT_DIR>] [--output <OUTPUT_FILE/OUTPUT_DIR>] [--level {WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS,ADVANCED_OPTIMIZATIONS}] [--extern <COMMA_SEPARATED_VARS>]
 ```
 
 ### Arguments

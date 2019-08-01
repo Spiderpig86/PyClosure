@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
+import sys
 import argparse
 
 from utils.constants import *
-from src import Compiler
+from pyclosure import Compiler
 
 def main():
     parser = argparse.ArgumentParser()
@@ -13,6 +14,11 @@ def main():
     parser.add_argument('--extern', default = '', help = HELP_EXTERNAL_VARS)
 
     args = parser.parse_args()
+
+    if len(sys.argv) < 2:
+        parser.print_help()
+        return
+
     comp = Compiler(args.input, args.output, args.level, args.extern)
     comp.compile()
 

@@ -28,7 +28,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'pyclosure = __main__:main',
+            'pyclosure = pyclosure.__main__:main',
         ],
     },
 )
