@@ -1,8 +1,18 @@
-# PyClosure
+<h1 align="center">PyClosure</h1>
+
+<div align="center">
+
+  [![Travis](https://travis-ci.org/Spiderpig86/PyClosure.svg?branch=master&style=flat-square)](https://travis-ci.org/Spiderpig86/PyClosure)
+
+</div>
+
+<p align="center">
 
 A console application that allows you to easily compile and optimize
 your JavaScript files in **batches** using the [Google Closure
 Compiler](https://developers.google.com/closure/compiler/).
+
+</p>
 
 # Install
 
@@ -30,3 +40,6 @@ usage: python -m pyclosure [-h] [--input <INPUT_FILE/INPUT_DIR>] [--output <OUTP
           - `ADVANCED_OPTIMIZATIONS`
   - `--extern` (optional) - enter in variables you want in your compiled
     code separated by **semi-colons**.
+
+# Tests
+The tests can be run using `python tests/test_basic.py`. Track the pipelines in [Travis CI](https://travis-ci.org/Spiderpig86/PyClosure).
